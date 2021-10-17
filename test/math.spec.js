@@ -7,4 +7,14 @@ describe('Math class', function () {
 
     assert.equal(math.sum(5, 5), 10);
   });
+
+  it('Sum two numbers async', function (done) {
+    const math = new Math();
+    this.timeout(3000)
+
+    math.asyncSum(5, 5, value => {
+      assert.equal(value, 10);
+      done();
+    })
+  });
 });
