@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const sinon = require('sinon');
 
 const Math = require('../src/math.js');
 
@@ -43,4 +44,15 @@ describe('Math class', function () {
     // usando .to.deep.equal faz uma comparação profunda dos objetos
     expect(userObj).to.deep.equal(userObj2); // params são iguais  
   });
+
+  it.only('Calls req with sum and index values', function() {
+    const req = {}
+    const res = { load: sinon.spy() } // mockando a função load
+
+    math.printSum(req, res, 5, 5)
+
+    expect(res.load.calledOnce).to.be.true
+    expect(res.load.args[0][0]).to.equal('index')
+    expect(res.load.args[0][1]).to.equal(10)
+  })
 });
